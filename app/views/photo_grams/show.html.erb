@@ -1,0 +1,24 @@
+<div class="post">
+    <p>
+        <strong>Title:</strong>
+        <%= @photo_gram.title%>
+    </p>
+
+    <p>
+        <strong>Content:</strong>
+        <%= @photo_gram.content%>
+    </p>
+    
+    <div class="image">
+        <% if @photo_gram.image.present? %>
+            <p>
+                <strong>Image:</strong>
+                <%= image_tag @photo_gram.image ,width:"50%"%>
+            </p>
+        <% end %>
+    </div>
+</div> 
+<%= button_to 'Delete', photo_gram_path(@photo_gram), method: :delete, data: { confirm: 'Are you sure you want to log out?' } %> <br/>
+<%= link_to 'Edit', edit_photo_gram_path(@photo_gram) %> |
+<%= link_to 'Back', photo_grams_path %>
+  

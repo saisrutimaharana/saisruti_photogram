@@ -5,7 +5,7 @@ class SessionsController < Devise::SessionsController
       user = User.find_for_database_authentication(email: params[:user][:email])
       if user && user.valid_password?(params[:user][:password])
         sign_in(user)
-        redirect_to blog_posts_path
+        redirect_to photo_grams_path
       else
         render json: { error: 'Invalid email or password' }, status: :unauthorized
       end

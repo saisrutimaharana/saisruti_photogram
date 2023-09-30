@@ -1,0 +1,29 @@
+ 
+  
+
+  <% if photo_gram.image.present? %>
+    <div >
+      <%= image_tag photo_gram.image.url ,width: "100%" %>
+    </div>
+  <% end %>
+
+  <% if photo_gram.video.present? %>
+    <video controls , width="30%">
+    <source src="<%= photo_gram.video.url %>" type="video/mp4">
+    </video>
+  <% end %>
+  <h3>Comments:</h3>
+    <ul>
+        <% photo_gram.comments.each do |comment| %>
+          <li> <p><strong><%= comment.user.email %></strong>:</strong> <%= comment.content %></p></li>
+        <% end %>
+    </ul>
+    <% if photo_gram.liking_users.any? %>
+      <h3>Liking Users:</h3>
+      <ul>
+        <% photo_gram.liking_users.each do |user| %>
+          <li><%= user.email %></li><br>
+          <% end %>
+      </ul>
+    <% end %>
+

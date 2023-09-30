@@ -1,0 +1,11 @@
+<div>
+    <div class="form"><%= render partial: "form", local: {photo_gram: @photo_gram} %></div><br/>
+    
+        <%= button_to "Delete", @photo_gram, method: :delete %><br/>
+        <div class="back">
+            <%= link_to 'Show', @photo_gram %><br/>
+        </div>
+        <div class=back>
+        <%= link_to 'Back', @photo_gram_path %><br/>
+        </div>
+</div>  

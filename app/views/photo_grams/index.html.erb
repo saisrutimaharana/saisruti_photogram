@@ -1,0 +1,78 @@
+<div class="photo_gram-container">
+
+  <%= link_to 'Create New Post', new_photo_gram_path %>
+
+  <% @photo_grams.each do |photo_gram| %>
+
+    <div class="post">
+
+      <% if photo_gram.image.attached? %>
+        <%= image_tag photo_gram.image, class: 'photo_gram-image' , width: "20%"%>
+      <% else %>
+        <p>No image available. </p>
+      <% end%>     
+      <%= photo_gram.content %>
+    </div>
+    
+  <% end %> 
+</div>
+<body>
+	<nav class="navbar">
+		<div class="navdiv">
+			<div class="logo"><a href="#">SOCIALBOOK</a> </div>
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">Contact</a></li>
+				<li>
+        <% if user_signed_in? %>
+          <%= button_to 'Signout', destroy_user_session_path, method: :delete, form: {turbolink: false} %>
+        <% else %>
+          <p>You are not logged in.</p>
+        <% end %>
+        </li>
+			</ul>
+		</div>
+	</nav>
+</body>
+
+
+
+<% if user_signed_in? %>
+  <p>Logged in as: <%= current_user.email %></p>
+<% else %>
+  <p>You are not logged in.</p>
+<% end %>
+
+<%= link_to ' Create post', new_photo_gram_path %>
+
+
+  <% @photo_grams.each do |photo_gram| %>
+    <div class="side">
+      <div class="post-container">
+        <div class="post">
+          <p><strong><%= post.user.username %></strong></p>
+          <% if post.user.avatar? %>
+            <%= image_tag post.user.avatar.url, class: "avatar" %>
+          <% else %>
+            <div class="default-avatar"><img src="https://www.pngarts.com/files/11/Avatar-PNG-Picture.png" alt="default-avatar" class="default-avatar"></div>
+          <% end %>
+          <p><%= post.user.email %>.   .   .</p>
+          <br>
+          <p>
+          <% unless current_user == post.user %>
+            <% if current_user.following?(post.user) %>
+              <%= button_to 'Unfollow', friendship_path(post.user.id), method: :delete %>
+            <% else %>
+              <%= button_to 'Follow', friendships_path(post.user.id), method: :post %>
+            <% end %>
+          <% end %>
+          </p>
+        </div>
+        <h1><%= link_to post.content, post_path(post) %></h1>
+        <%= render 'post', post: post %>
+        
+      </div>
+    </div>
+    
+  <% end %>
